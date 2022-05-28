@@ -1,4 +1,4 @@
-package com.etit.bl2;
+package com.etit.bl2.ui.movies;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,24 +12,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class BooksFragment extends Fragment {
+import com.etit.bl2.R;
 
-    private BooksViewModel mViewModel;
+public class MoviesFragment extends Fragment {
 
-    public static BooksFragment newInstance() {
-        return new BooksFragment();
+    private MoviesViewModel mViewModel;
+
+    public static MoviesFragment newInstance() {
+        return new MoviesFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_books, container, false);
+        return inflater.inflate(R.layout.fragment_movies, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(BooksViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(MoviesViewModel.class);
         // TODO: Use the ViewModel
     }
 

@@ -7,17 +7,12 @@
 
     <fragment
         android:id="@+id/navigation_movies"
-        android:name="com.etit.bl2.MoviesFragment"
-        android:label="fragment_movies"
+        android:name="com.etit.bl2.ui.movies.MoviesFragment"
+        android:label="@string/title_movies"
         tools:layout="@layout/fragment_movies" />
     <fragment
         android:id="@+id/navigation_books"
-        android:name="com.etit.bl2.BooksFragment"
-        android:label="fragment_books"
+        android:name="com.etit.bl2.ui.books.BooksFragment"
+        android:label="@string/title_books"
         tools:layout="@layout/fragment_books" />
-    <fragment
-        android:id="@+id/scrollingFragment"
-        android:name="com.etit.bl2.ScrollingFragment"
-        android:label="fragment_scrolling"
-        tools:layout="@layout/fragment_scrolling" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.etit.bl2;
+package com.etit.bl2.ui.books;
 
 import androidx.lifecycle.ViewModel;
 

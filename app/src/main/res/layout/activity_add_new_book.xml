@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddNewBook"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginTop="12dp"
+        android:ems="20"
+        android:hint="Author"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/etTitle"
+        tools:layout_editor_absoluteX="18dp" />
+
+    <EditText
+        android:id="@+id/etImageUri"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="Cover image URI"
+        app:layout_constraintTop_toBottomOf="@+id/etAuthor"
+        tools:layout_editor_absoluteX="18dp" />
+
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginTop="36dp"
+        android:ems="50"
+        android:hint="Title"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/ivCover"
+        tools:layout_editor_absoluteX="12dp" />
+
+    <ImageView
+        android:id="@+id/ivCover"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="34dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rbRating" />
+
+    <SeekBar
+        android:id="@+id/sbProgress"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginTop="24dp"
+        android:max="100"
+        android:min="0"
+        app:layout_constraintTop_toBottomOf="@+id/etImageUri"
+        tools:layout_editor_absoluteX="12dp" />
+
+    <TextView
+        android:id="@+id/tvProgressIndication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="@+id/sbProgress"
+        app:layout_constraintStart_toStartOf="@+id/sbProgress"
+        app:layout_constraintTop_toBottomOf="@+id/sbProgress" />
+
+    <RatingBar
+        android:id="@+id/rbRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:contentDescription="Stars"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvProgressIndication" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,7 @@
         android:title="@string/title_books" />
 
     <item
-        android:id="@+id/scrollingFragment"
+        android:id="@+id/navigation_movies"
         android:icon="@drawable/ic_movies_24"
         android:title="@string/title_movies" />
 
