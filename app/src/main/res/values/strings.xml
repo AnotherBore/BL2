@@ -3,6 +3,7 @@
     <string name="title_books">Books</string>
     <string name="title_movies">Movies</string>
     <string name="add">Add</string>
+    <string name="update">Update</string>
 
 
     <string-array name="watchVariants">

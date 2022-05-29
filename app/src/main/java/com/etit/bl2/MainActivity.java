@@ -28,6 +28,7 @@ import com.etit.bl2.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,9 +43,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                1);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -65,10 +63,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = null;
                 Integer id = navController.getCurrentDestination().getId();
-                if(id == 2131231057){
+                Log.d("sad", id.toString());
+                if(id == 2131296607){
                     intent = new Intent(MainActivity.this, AddNewBook.class);
                     startActivity(intent);
-                }else if(id == 2131231059) {
+                }else if(id == 2131296609) {
                     intent = new Intent(MainActivity.this, AddNewFilm.class);
                     startActivity(intent);
                 }
@@ -85,17 +84,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        MakeMarkdown make = new MakeMarkdown();
+        File path = getApplicationContext().getFilesDir();
         if(id==R.id.share){
             if(ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                MakeMarkdown.make();
+                try {
+                    make.make(this);
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path.toString() + "/markdown.md"));
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(Intent.createChooser(intent, "Share via"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }else{
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        12);
             }
 
 
-            //Intent intent = new Intent(Intent.ACTION_SEND);
-            //intent.setType("*.md");
-            //intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File()));
-            //startActivity(Intent.createChooser(intent, "Share via"));
         }
         return true;
     }
