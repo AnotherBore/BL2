@@ -12,12 +12,19 @@
         <entry key="..\:/Android/BL2/app/src/main/res/layout/fragment_navigation_books.xml" value="0.25" />
         <entry key="..\:/Android/BL2/app/src/main/res/layout/fragment_scrolling.xml" value="0.16296296296296298" />
         <entry key="..\:/Android/BL2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.152" />
+        <entry key="..\:/Programs/Android/BL2/app/src/main/res/drawable/ic_add.xml" value="0.249" />
         <entry key="..\:/Programs/Android/BL2/app/src/main/res/layout/activity_add_new_book.xml" value="0.35260416666666666" />
+        <entry key="..\:/Programs/Android/BL2/app/src/main/res/layout/activity_add_new_film.xml" value="0.36666666666666664" />
         <entry key="..\:/Programs/Android/BL2/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Programs/Android/BL2/app/src/main/res/layout/activity_update_book.xml" value="0.36666666666666664" />
+        <entry key="..\:/Programs/Android/BL2/app/src/main/res/layout/activity_update_film.xml" value="0.36666666666666664" />
+        <entry key="..\:/Programs/Android/BL2/app/src/main/res/layout/example.xml" value="0.365625" />
         <entry key="..\:/Programs/Android/BL2/app/src/main/res/layout/fragment_books.xml" value="0.36666666666666664" />
+        <entry key="..\:/Programs/Android/BL2/app/src/main/res/layout/fragment_movies.xml" value="0.36666666666666664" />
         <entry key="..\:/Programs/Android/BL2/app/src/main/res/layout/recycler_row.xml" value="0.365625" />
+        <entry key="..\:/Programs/Android/BL2/app/src/main/res/layout/recycler_row_films.xml" value="0.25" />
         <entry key="..\:/Programs/Android/BL2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Programs/Android/BL2/app/src/main/res/menu/share.xml" value="0.16640625" />
       </map>
     </option>
   </component>

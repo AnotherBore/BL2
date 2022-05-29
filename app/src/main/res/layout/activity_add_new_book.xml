@@ -4,48 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddNewBook"
-    android:padding="16dp">
+    android:padding="8dp"
+    tools:context=".AddNewBook">
 
     <EditText
         android:id="@+id/etAuthor"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:layout_marginTop="12dp"
-        android:ems="20"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
         android:hint="Author"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/etTitle"
-        tools:layout_editor_absoluteX="18dp" />
+        android:singleLine="true"
+        app:layout_constraintEnd_toStartOf="@+id/ivCover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTitle" />
 
     <EditText
         android:id="@+id/etImageUri"
         android:layout_width="match_parent"
         android:layout_height="42dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Cover image URI"
-        app:layout_constraintTop_toBottomOf="@+id/etAuthor"
-        tools:layout_editor_absoluteX="18dp" />
+        android:singleLine="true"
+        app:layout_constraintTop_toBottomOf="@+id/ivCover"
+        tools:layout_editor_absoluteX="16dp" />
 
     <EditText
         android:id="@+id/etTitle"
-        android:layout_width="match_parent"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="0dp"
         android:layout_height="42dp"
-        android:layout_marginTop="36dp"
-        android:ems="50"
+        android:layout_marginEnd="8dp"
         android:hint="Title"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/ivCover"
-        tools:layout_editor_absoluteX="12dp" />
+        android:singleLine="true"
+        app:layout_constraintEnd_toStartOf="@+id/ivCover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivCover" />
 
     <ImageView
         android:id="@+id/ivCover"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="34dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/notesTextInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_background" />
 
@@ -53,28 +57,27 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:text="ADD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rbRating" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <SeekBar
         android:id="@+id/sbProgress"
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:max="100"
         android:min="0"
         app:layout_constraintTop_toBottomOf="@+id/etImageUri"
-        tools:layout_editor_absoluteX="12dp" />
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/tvProgressIndication"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="4dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="@+id/sbProgress"
         app:layout_constraintStart_toStartOf="@+id/sbProgress"
@@ -84,9 +87,34 @@
         android:id="@+id/rbRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="Stars"
+        app:layout_constraintBottom_toTopOf="@+id/notesTextInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvProgressIndication" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/notesTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:hint="Comment"
+        android:padding="2dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:id="@+id/etComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences|textMultiLine"
+            android:minLines="2"
+            tools:ignore="LabelFor"
+            tools:text="Неистово плюсую" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

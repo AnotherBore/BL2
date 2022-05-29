@@ -1,11 +1,8 @@
 package com.etit.bl2.ui.books;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,13 +18,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.etit.bl2.CustomRecyclerAdapter;
+import com.etit.bl2.BooksRecyclerAdapter;
 import com.etit.bl2.DatabaseHelper;
 import com.etit.bl2.R;
 import com.github.javafaker.Faker;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -37,10 +32,10 @@ public class BooksFragment extends Fragment {
 
     RecyclerView recyclerView;
     DatabaseHelper db;
-    ArrayList<String> book_id, book_title, book_author, book_image_uri;
+    ArrayList<String> book_id, book_title, book_author, book_image_uri, book_description;
     ArrayList<Integer> book_rating, book_progress;
     ArrayList<Bitmap> book_image;
-    CustomRecyclerAdapter adapter;
+    BooksRecyclerAdapter adapter;
 
     public static BooksFragment newInstance() {
         return new BooksFragment();
@@ -51,7 +46,7 @@ public class BooksFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_books, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerViewBooks);
         db = new DatabaseHelper(view.getContext());
         book_id = new ArrayList<>();
         book_title = new ArrayList<>();
@@ -60,10 +55,11 @@ public class BooksFragment extends Fragment {
         book_image = new ArrayList<>();
         book_rating = new ArrayList<>();
         book_progress = new ArrayList<>();
+        book_description = new ArrayList<>();
 
         dataToArrays();
-        adapter = new CustomRecyclerAdapter(getActivity(), view.getContext(), book_id, book_title,
-                book_author, book_image_uri, book_image, book_progress, book_rating);
+        adapter = new BooksRecyclerAdapter(getActivity(), view.getContext(), book_id, book_title,
+                book_author, book_image_uri, book_image, book_progress, book_rating, book_description);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -89,15 +85,17 @@ public class BooksFragment extends Fragment {
             Log.d("DataToArrays", "NO DATA");
             String name;
             String book;
+            String comment;
             String uri = "https://avatars.githubusercontent.com/u/71878526?s=400&u=f8ef188976fdbc7d0bc8e072732a1669648e11b5&v=4";
             byte[] image = {1, 2, 3};
             int progress = 45;
             int rating = 8;
-            for (int i=0;i < 10; i++){
-                name = faker.book().author();
-                book = faker.book().title();
-                db.insertBook(name, book, uri, image, progress, rating);
-            }
+//            for (int i=0;i < 10; i++){
+//                name = faker.book().author();
+//                book = faker.book().title();
+//                comment = faker.dune().saying();
+//                db.insertBook(name, book, uri, image, progress, rating, comment);
+//            }
         } else {
             byte[] imgByte;
             while(cursor.moveToNext()) {
@@ -110,6 +108,7 @@ public class BooksFragment extends Fragment {
                 book_image.add(BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length));
                 book_progress.add(cursor.getInt(5));
                 book_rating.add(cursor.getInt(6));
+                book_description.add(cursor.getString(7));
             }
         }
     }

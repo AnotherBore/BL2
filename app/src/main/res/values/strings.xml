@@ -5,4 +5,10 @@
     <string name="add">Add</string>
 
 
+    <string-array name="watchVariants">
+        <item>Cinema</item>
+        <item>Home</item>
+    </string-array>
+
+
 </resources>

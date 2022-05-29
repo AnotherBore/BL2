@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".UpdateBook">
+    tools:context=".UpdateFilm">
 
     <EditText
-        android:id="@+id/etAuthorUpdate"
+        android:id="@+id/etDirectorUpdate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -16,23 +16,23 @@
         android:hint="Author"
         android:inputType="textPersonName"
         android:singleLine="true"
-        app:layout_constraintEnd_toStartOf="@+id/ivCoverUpdate"
+        app:layout_constraintEnd_toStartOf="@+id/ivCoverFilmUpdate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTitleUpdate" />
+        app:layout_constraintTop_toBottomOf="@+id/etTitleFilmUpdate" />
 
     <EditText
-        android:id="@+id/etImageUriUpdate"
+        android:id="@+id/etImageUriFilmUpdate"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Cover image URI"
         android:singleLine="true"
-        app:layout_constraintTop_toBottomOf="@+id/ivCoverUpdate"
+        app:layout_constraintTop_toBottomOf="@+id/ivCoverFilmUpdate"
         tools:layout_editor_absoluteX="16dp" />
 
     <EditText
-        android:id="@+id/etTitleUpdate"
+        android:id="@+id/etTitleFilmUpdate"
         style="@style/Widget.AppCompat.EditText"
         android:layout_width="0dp"
         android:layout_height="42dp"
@@ -40,12 +40,12 @@
         android:hint="Title"
         android:inputType="textPersonName"
         android:singleLine="true"
-        app:layout_constraintEnd_toStartOf="@+id/ivCoverUpdate"
+        app:layout_constraintEnd_toStartOf="@+id/ivCoverFilmUpdate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ivCoverUpdate" />
+        app:layout_constraintTop_toTopOf="@+id/ivCoverFilmUpdate" />
 
     <ImageView
-        android:id="@+id/ivCoverUpdate"
+        android:id="@+id/ivCoverFilmUpdate"
         android:layout_width="80dp"
         android:layout_height="80dp"
         app:layout_constraintBottom_toTopOf="@+id/notesTextInputLayout"
@@ -54,7 +54,7 @@
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <Button
-        android:id="@+id/buttonUpdate"
+        android:id="@+id/buttonFilmUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -63,36 +63,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <SeekBar
-        android:id="@+id/sbProgressUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        android:max="100"
-        android:min="0"
-        app:layout_constraintTop_toBottomOf="@+id/etImageUriUpdate"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <TextView
-        android:id="@+id/tvProgressIndicationUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="@+id/sbProgressUpdate"
-        app:layout_constraintStart_toStartOf="@+id/sbProgressUpdate"
-        app:layout_constraintTop_toBottomOf="@+id/sbProgressUpdate" />
-
     <RatingBar
-        android:id="@+id/rbRatingUpdate"
+        android:id="@+id/rbRatingFilmUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:contentDescription="Stars"
         app:layout_constraintBottom_toTopOf="@+id/notesTextInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvProgressIndicationUpdate" />
+        app:layout_constraintTop_toBottomOf="@+id/spWatchUpdate" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/notesTextInputLayout"
@@ -102,12 +81,12 @@
         android:hint="Comment"
         android:padding="2dp"
         android:paddingBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonUpdate"
+        app:layout_constraintBottom_toTopOf="@+id/buttonFilmUpdate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-            android:id="@+id/etCommentUpdate"
+            android:id="@+id/etCommentFilmUpdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapSentences|textMultiLine"
@@ -116,5 +95,14 @@
             tools:text="Неистово плюсую" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/spWatchUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"
+        android:entries="@array/watchVariants"
+        app:layout_constraintTop_toBottomOf="@+id/etImageUriFilmUpdate"
+        tools:layout_editor_absoluteX="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

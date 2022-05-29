@@ -16,13 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder> {
+public class BooksRecyclerAdapter extends RecyclerView.Adapter<BooksRecyclerAdapter.BooksViewHolder> {
     private Context context;
     Activity activity;
     int position;
-    private ArrayList book_id, book_title, book_author, book_image_uri, book_image, book_rating, book_progress;
+    private ArrayList book_id, book_title, book_author, book_image_uri, book_image, book_rating,
+            book_progress, book_description;
 
-    public CustomRecyclerAdapter(Activity activity, Context context, ArrayList book_id, ArrayList book_title, ArrayList book_author,ArrayList book_image_uri, ArrayList book_image, ArrayList book_progress, ArrayList book_rating) {
+    public BooksRecyclerAdapter(Activity activity, Context context, ArrayList book_id,
+                                ArrayList book_title, ArrayList book_author,
+                                ArrayList book_image_uri, ArrayList book_image,
+                                ArrayList book_progress, ArrayList book_rating, ArrayList book_description) {
         this.activity = activity;
         this.context = context;
         this.book_id = book_id;
@@ -32,14 +36,15 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
         this.book_image_uri = book_image_uri;
         this.book_progress = book_progress;
         this.book_rating = book_rating;
+        this.book_description = book_description;
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class BooksViewHolder extends RecyclerView.ViewHolder{
         TextView book_title_txt, book_author_txt, book_progress_txt, book_rating_txt;
         ImageView book_cover;
         LinearLayout layout;
-        public MyViewHolder(@NonNull View itemView) {
+        public BooksViewHolder(@NonNull View itemView) {
             super(itemView);
             book_title_txt = itemView.findViewById(R.id.tvBookTitle);
             book_author_txt = itemView.findViewById(R.id.tvBookAuthor);
@@ -52,14 +57,14 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
 
     @NonNull
     @Override
-    public CustomRecyclerAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BooksRecyclerAdapter.BooksViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_row, parent, false);
-        return new MyViewHolder(view);
+        return new BooksViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BooksViewHolder holder, int position) {
         this.position = position;
         Integer rating_int = (Integer) book_rating.get(position);
         float rating_float = rating_int / 2f;
@@ -79,6 +84,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
                 intent.putExtra("image_uri", String.valueOf(book_image_uri.get(position)));
                 intent.putExtra("progress", (Integer) book_progress.get(position));
                 intent.putExtra("rating", (Integer) book_rating.get(position));
+                intent.putExtra("description",String.valueOf(book_description.get(position)));
                 activity.startActivityForResult(intent, 1);
             }
         });

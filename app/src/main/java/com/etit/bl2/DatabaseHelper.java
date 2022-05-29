@@ -24,12 +24,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String COLUMN_IMAGE_URI = "image_uri";
     private static final String COLUMN_IMAGE = "image";
     private static final String COLUMN_RELEASE = "release_date";
+    private static final String COLUMN_DESCRIPTION = "description";
 
     private static final String BOOK_AUTHOR = "author";
     private static final String GAME_PLATFORM = "platform";
     private static final String GAME_HOURS = "hours";
     private static final String GAME_DEV = "developer";
     private static final String FILM_DIRECTOR = "director";
+    private static final String FILM_WATCH = "watch";
+    private static final String FILM_WATCH_ID = "watch_id";
     private static final String SERIES_STUDIO = "studio";
     private static final String SERIES_FINAL = "final_date";
     private static final String SERIES_SEASONS = "seasons";
@@ -50,7 +53,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 + COLUMN_IMAGE_URI + " TEXT, "
                 + COLUMN_IMAGE + " BLOB, "
                 + COLUMN_PROGRESS + " INTEGER, "
-                + COLUMN_RATING + " INTEGER);";
+                + COLUMN_RATING + " INTEGER, "
+                + COLUMN_DESCRIPTION + " TEXT);";
         db.execSQL(query);
 
         query = "CREATE TABLE " + TABLE_NAME_GAME
@@ -63,7 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 + GAME_HOURS + " INTEGER, "
                 + COLUMN_RELEASE + " INTEGER, "
                 + COLUMN_PROGRESS + " INTEGER, "
-                + COLUMN_RATING + " INTEGER);";
+                + COLUMN_DESCRIPTION + " TEXT);";
         db.execSQL(query);
         query = "CREATE TABLE " + TABLE_NAME_FILM
                 + " (" +  COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -71,8 +75,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 + FILM_DIRECTOR + " TEXT, "
                 + COLUMN_IMAGE_URI + " TEXT, "
                 + COLUMN_IMAGE + " BLOB, "
-                + COLUMN_RELEASE + " INTEGER, "
-                + COLUMN_RATING + " INTEGER);";
+                + FILM_WATCH_ID + " INTEGER, "
+                + FILM_WATCH + " TEXT, "
+                + COLUMN_RATING + " INTEGER, "
+                + COLUMN_DESCRIPTION + " TEXT);";
         db.execSQL(query);
         query = "CREATE TABLE " + TABLE_NAME_SERIES
                 + " (" +  COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -98,7 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public void insertBook(String title, String author, String image_uri, byte [] image, int progress, int rating){
+    public void insertBook(String title, String author, String image_uri, byte [] image, int progress, int rating, String description){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -108,6 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         cv.put(COLUMN_IMAGE_URI, image_uri);
         cv.put(COLUMN_PROGRESS, progress);
         cv.put(COLUMN_RATING, rating);
+        cv.put(COLUMN_DESCRIPTION, description);
 
         db.insert(TABLE_NAME_BOOK, null, cv);
     }
@@ -133,7 +140,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return cursor;
     }
 
-    public void updateBooks(String row_id, String title, String author, String image_uri, byte[] image, int progress, int rating){
+    public void updateBooks(String row_id, String title, String author, String image_uri, byte[] image, int progress, int rating, String description){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -143,7 +150,51 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         cv.put(COLUMN_IMAGE, image);
         cv.put(COLUMN_PROGRESS, progress);
         cv.put(COLUMN_RATING, rating);
+        cv.put(COLUMN_DESCRIPTION, description);
 
         db.update(TABLE_NAME_BOOK, cv, "_id=?", new String[]{row_id});
+    }
+
+    public void insertFilm(String title, String director, String image_uri, byte [] image,int watch_id, String watch, int rating, String description){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_TITLE, title);
+        cv.put(FILM_DIRECTOR, director);
+        cv.put(COLUMN_IMAGE, image);
+        cv.put(COLUMN_IMAGE_URI, image_uri);
+        cv.put(FILM_WATCH, watch);
+        cv.put(FILM_WATCH_ID, watch_id);
+        cv.put(COLUMN_RATING, rating);
+        cv.put(COLUMN_DESCRIPTION, description);
+
+        db.insert(TABLE_NAME_FILM, null, cv);
+    }
+
+    public void updateFilm(String row_id, String title, String director, String image_uri, byte [] image,int watch_id, String watch, int rating, String description){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_TITLE, title);
+        cv.put(FILM_DIRECTOR, director);
+        cv.put(COLUMN_IMAGE, image);
+        cv.put(COLUMN_IMAGE_URI, image_uri);
+        cv.put(FILM_WATCH, watch);
+        cv.put(FILM_WATCH_ID, watch_id);
+        cv.put(COLUMN_RATING, rating);
+        cv.put(COLUMN_DESCRIPTION, description);
+
+        db.update(TABLE_NAME_FILM, cv, "_id=?", new String[]{row_id});
+    }
+
+    public Cursor readAllFilms(){
+        String query = "SELECT * FROM " + TABLE_NAME_FILM;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
     }
 }
