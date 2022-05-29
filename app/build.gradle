@@ -2,7 +2,9 @@ plugins {
     id 'com.android.application'
 }
 
+
 android {
+    compileSdk 32
     compileSdk 32
 
     defaultConfig {
@@ -43,6 +45,14 @@ dependencies {
 
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.javafaker:javafaker:1.0.2'
+
+    implementation 'com.github.Steppschuh:Java-Markdown-Generator:master-SNAPSHOT'
+
+//    final def markwon_version = 'latest_version'
+//
+//    implementation "io.noties.markwon:core:$markwon_version"
+//    implementation "io.noties.markwon:html:$markwon_version"
+//    implementation "org.jetbrains:markdown:0.2.0.pre-55"
 
 
     testImplementation 'junit:junit:4.13.2'
