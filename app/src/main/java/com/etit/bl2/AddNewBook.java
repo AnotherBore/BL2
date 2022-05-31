@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import com.squareup.picasso.Picasso;
@@ -80,10 +85,11 @@ public class AddNewBook extends AppCompatActivity {
                 if(!image_path.isEmpty()){
                     Picasso.get()
                             .load(image_path)
-                            //.error(R.mipmap.ic_launcher)
+                            .placeholder(R.drawable.ic_image_search)
+                            .error(R.drawable.ic_no_image)
                             .into(cover_output);
                 }else{
-                    cover_output.setImageResource(R.drawable.ic_launcher_background);
+                    cover_output.setImageResource(R.drawable.ic_no_image);
                 }
             }
         });
@@ -91,29 +97,56 @@ public class AddNewBook extends AppCompatActivity {
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                byte[] cover_byte = imageViewToByteArray(cover_output);
+                byte[] cover_byte = drawable2Bytes(cover_output.getDrawable());
                 DatabaseHelper myDB = new DatabaseHelper(AddNewBook.this);
-                myDB.insertBook(title_input.getText().toString().trim(),
-                        author_input.getText().toString().trim(),
-                        image_uri_input.getText().toString().trim(),
-                        cover_byte,
-                        progress_input.getProgress(),
-                        rating_input.getProgress(),
-                        description_input.getText().toString().trim());
-                //myDB.customSelect("library_books", "rating", "> 2");
-                Intent intent = new Intent(AddNewBook.this, MainActivity.class);
-                startActivityForResult(intent, 1);
+                if(cover_byte.length != 0){
+                    myDB.insertBook(title_input.getText().toString().trim(),
+                            author_input.getText().toString().trim(),
+                            image_uri_input.getText().toString().trim(),
+                            cover_byte,
+                            progress_input.getProgress(),
+                            rating_input.getProgress(),
+                            description_input.getText().toString().trim());
+                    //myDB.customSelect("library_books", "rating", "> 2");
+                    Intent intent = new Intent(AddNewBook.this, MainActivity.class);
+                    startActivityForResult(intent, 1);
 
-                finish();
+                    finish();
+                }else{
+                    Toast.makeText(view.getContext(), "Нет обложки", Toast.LENGTH_SHORT);
+                }
+
             }
         });
     }
 
-    static byte[] imageViewToByteArray(ImageView imageView){
-        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
+
+    public static byte[] drawable2Bytes(Drawable d) {
+        Bitmap bitmap = drawable2Bitmap(d);
+        return bitmap2Bytes(bitmap);
+    }
+
+    public static Bitmap drawable2Bitmap(Drawable drawable) {
+        Bitmap bitmap = Bitmap
+                .createBitmap(
+                        drawable.getIntrinsicWidth(),
+                        drawable.getIntrinsicHeight(),
+                        drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                                : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    public static byte[] bitmap2Bytes(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
+    }
+
+    static void isEmpty(){
+
     }
 }

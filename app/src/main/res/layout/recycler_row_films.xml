@@ -14,7 +14,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp">
+            android:padding="6dp">
 
             <TextView
                 android:id="@+id/tvFilmRating"
@@ -36,6 +36,9 @@
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxEms="10"
+                android:maxLines="1"
                 app:layout_constraintStart_toEndOf="@+id/ivFilmCover"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,6 +50,9 @@
                 android:text="Булгаков М. А."
                 android:textSize="18sp"
                 android:textStyle="italic"
+                android:ellipsize="end"
+                android:maxEms="8"
+                android:maxLines="1"
                 app:layout_constraintStart_toStartOf="@+id/tvFilmTitle"
                 app:layout_constraintTop_toBottomOf="@+id/tvFilmTitle" />
 

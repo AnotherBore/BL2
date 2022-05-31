@@ -59,7 +59,15 @@ public class UpdateFilm extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 String image_path = image_uri_input.getText().toString().trim();
-                if(!image_path.isEmpty()) Picasso.get().load(image_path).into(cover_output);
+                if(!image_path.isEmpty()){
+                    Picasso.get()
+                            .load(image_path)
+                            .placeholder(R.drawable.ic_image_search)
+                            .error(R.drawable.ic_no_image)
+                            .into(cover_output);
+                }else{
+                    cover_output.setImageResource(R.drawable.ic_no_image);
+                }
             }
         });
 
@@ -68,7 +76,7 @@ public class UpdateFilm extends AppCompatActivity {
         update_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                byte[] cover_byte = AddNewBook.imageViewToByteArray(cover_output);
+                byte[] cover_byte = AddNewBook.drawable2Bytes(cover_output.getDrawable());
                 DatabaseHelper db = new DatabaseHelper(UpdateFilm.this);
                 db.updateFilm(id, title_input.getText().toString().trim(),
                         author_input.getText().toString().trim(),

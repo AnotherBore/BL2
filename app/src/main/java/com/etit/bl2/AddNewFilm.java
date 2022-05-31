@@ -62,10 +62,11 @@ public class AddNewFilm extends AppCompatActivity {
                 if(!image_path.isEmpty()){
                     Picasso.get()
                             .load(image_path)
-                            //.error(R.mipmap.ic_launcher)
+                            .placeholder(R.drawable.ic_image_search)
+                            .error(R.drawable.ic_no_image)
                             .into(cover_output);
                 }else{
-                    cover_output.setImageResource(R.drawable.ic_launcher_background);
+                    cover_output.setImageResource(R.drawable.ic_no_image);
                 }
             }
         });
@@ -73,7 +74,7 @@ public class AddNewFilm extends AppCompatActivity {
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                byte[] cover_byte = AddNewBook.imageViewToByteArray(cover_output);
+                byte[] cover_byte = AddNewBook.drawable2Bytes(cover_output.getDrawable());
                 DatabaseHelper myDB = new DatabaseHelper(AddNewFilm.this);
                 myDB.insertFilm(title_input.getText().toString().trim(),
                         author_input.getText().toString().trim(),

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -64,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = null;
                 Integer id = navController.getCurrentDestination().getId();
                 Log.d("sad", id.toString());
-                if(id == 2131296607){
+                if(id == R.id.navigation_books){
                     intent = new Intent(MainActivity.this, AddNewBook.class);
                     startActivity(intent);
-                }else if(id == 2131296609) {
+                }else if(id == R.id.navigation_movies) {
                     intent = new Intent(MainActivity.this, AddNewFilm.class);
                     startActivity(intent);
                 }
@@ -85,17 +88,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         MakeMarkdown make = new MakeMarkdown();
-        File path = getApplicationContext().getFilesDir();
+        //File path = new File("/storage/emulated/0/Download");
         if(id==R.id.share){
             if(ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                 try {
-                    make.make(this);
-                    Intent intent = new Intent(Intent.ACTION_SEND);
-                    intent.setType("text/plain");
-                    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path.toString() + "/markdown.md"));
+                    Uri uri = make.make(this);
+                    String info = "Это мой вишлист развлечений\nТы можешь посмотреть его в лююбом Markdown редакторе.";
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_SEND);
+                    intent.putExtra(Intent.EXTRA_STREAM, uri);
+                    intent.putExtra(Intent.EXTRA_TEXT, info);
+                    intent.setType("text/html");
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    startActivity(Intent.createChooser(intent, "Share via"));
+                    startActivity(Intent.createChooser(intent, null));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <files-path name="app_directory" path="/storage/emulated/0/Download"/>
+    <files-path name="markdown" path="docs/"/>
 </paths>

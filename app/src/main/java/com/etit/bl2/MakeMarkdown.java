@@ -4,8 +4,11 @@ package com.etit.bl2;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
+
+import androidx.core.content.FileProvider;
 
 import com.github.javafaker.Faker;
 
@@ -32,7 +35,7 @@ public class MakeMarkdown {
 
     DatabaseHelper db;
 
-    public void make(Context context) throws IOException {
+    public Uri make(Context context) throws IOException {
 
         db = new DatabaseHelper(context);
         film_title = new ArrayList<>();
@@ -75,16 +78,21 @@ public class MakeMarkdown {
                 .append("\n")
                 .append(tableBooks.build().toString())
                 .append("\n")
+                .append("\n")
                 .append(new Heading("My films", 1))
+                .append("\n")
                 .append("\n")
                 .append(tableFilms.build().toString())
                 .append("\n");
 
-        File path = new File("/storage/emulated/0/Download");
+        File mdpath = new File(context.getFilesDir(), "docs");
+        mdpath.mkdir();
+        File md = new File(mdpath.getPath(), "markdown.md");
+
         String table_films = tableFilms.build().toString();
         //Log.d("dsa",table_txt);
         try {
-            FileWriter writer = new FileWriter(new File(path, "markdown.md"));
+            FileWriter writer = new FileWriter(md);
             writer.append(sb.toString());
 
             writer.flush();
@@ -94,7 +102,8 @@ public class MakeMarkdown {
         }
 
 
-
+        Uri uri = FileProvider.getUriForFile(context, context.getPackageName(), md);
+        return uri;
 
     }
 
