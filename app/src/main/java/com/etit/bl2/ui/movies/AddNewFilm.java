@@ -1,10 +1,8 @@
-package com.etit.bl2;
+package com.etit.bl2.ui.movies;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,37 +11,36 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 
+import com.etit.bl2.data.DatabaseHelper;
+import com.etit.bl2.ui.MainActivity;
+import com.etit.bl2.R;
+import com.etit.bl2.ui.books.AddNewBook;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
-
-public class UpdateFilm extends AppCompatActivity {
-    private String id, title, author, image_uri, description;
-    private int watch_id, rating;
+public class AddNewFilm extends AppCompatActivity {
 
     private EditText title_input, author_input, image_uri_input, description_input;
-    private ImageView cover_output;
+    private Button add_button;
     private Spinner watch_input;
-    private Button update_button;
     private RatingBar rating_input;
+    private ImageView cover_output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_film);
+        setContentView(R.layout.activity_add_new_film);
 
-        title_input = findViewById(R.id.etTitleFilmUpdate);
-        author_input = findViewById(R.id.etDirectorUpdate);
-        image_uri_input = findViewById(R.id.etImageUriFilmUpdate);
-        watch_input = findViewById(R.id.spWatchUpdate);
-        description_input = findViewById(R.id.etCommentFilmUpdate);
-        update_button = findViewById(R.id.buttonFilmUpdate);
-        rating_input = findViewById(R.id.rbRatingFilmUpdate);
-        cover_output = findViewById(R.id.ivCoverFilmUpdate);
+
+        title_input = findViewById(R.id.etTitleFilm);
+        author_input = findViewById(R.id.etDirector);
+        image_uri_input = findViewById(R.id.etImageUriFilm);
+        description_input = findViewById(R.id.etCommentFilm);
+        watch_input = findViewById(R.id.spWatch);
+        add_button = findViewById(R.id.buttonFilm);
+        rating_input = findViewById(R.id.rbRatingFilm);
+        cover_output = findViewById(R.id.ivCoverFilm);
 
         image_uri_input.addTextChangedListener(new TextWatcher() {
             @Override
@@ -71,14 +68,12 @@ public class UpdateFilm extends AppCompatActivity {
             }
         });
 
-        getAndSetExtra();
-
-        update_button.setOnClickListener(new View.OnClickListener() {
+        add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 byte[] cover_byte = AddNewBook.drawable2Bytes(cover_output.getDrawable());
-                DatabaseHelper db = new DatabaseHelper(UpdateFilm.this);
-                db.updateFilm(id, title_input.getText().toString().trim(),
+                DatabaseHelper myDB = new DatabaseHelper(AddNewFilm.this);
+                myDB.insertFilm(title_input.getText().toString().trim(),
                         author_input.getText().toString().trim(),
                         image_uri_input.getText().toString().trim(),
                         cover_byte,
@@ -86,29 +81,11 @@ public class UpdateFilm extends AppCompatActivity {
                         watch_input.getSelectedItem().toString(),
                         rating_input.getProgress(),
                         description_input.getText().toString().trim());
+                //myDB.customSelect("library_books", "rating", "> 2");
+                Intent intent = new Intent(AddNewFilm.this, MainActivity.class);
+                startActivityForResult(intent, 1);
                 finish();
             }
         });
-    }
-
-    private void getAndSetExtra(){
-        if(getIntent().hasExtra("id")){
-            id = getIntent().getStringExtra("id");
-            title = getIntent().getStringExtra("title");
-            author = getIntent().getStringExtra("author");
-            image_uri = getIntent().getStringExtra("image_uri");
-            watch_id = getIntent().getIntExtra("watch_id", 0);
-            rating = getIntent().getIntExtra("rating", -1);
-            description = getIntent().getStringExtra("description");
-
-            title_input.setText(title);
-            author_input.setText(author);
-            description_input.setText(description);
-            image_uri_input.setText(image_uri);
-            watch_input.setSelection(watch_id);
-            rating_input.setProgress(rating);
-        }else{
-
-        }
     }
 }

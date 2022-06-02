@@ -1,28 +1,22 @@
-package com.etit.bl2;
+package com.etit.bl2.data;
 
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 
 import androidx.core.content.FileProvider;
 
+import com.etit.bl2.data.DatabaseHelper;
 import com.github.javafaker.Faker;
 
 import net.steppschuh.markdowngenerator.table.Table;
 import net.steppschuh.markdowngenerator.text.heading.Heading;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 

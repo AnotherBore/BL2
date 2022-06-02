@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".UpdateFilm">
+    tools:context=".ui.movies.UpdateFilm">
 
     <EditText
         android:id="@+id/etDirectorUpdate"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:ellipsize="end"
-        android:hint="Author"
+        android:hint="Director"
         android:inputType="textPersonName"
         android:singleLine="true"
         app:layout_constraintEnd_toStartOf="@+id/ivCoverFilmUpdate"

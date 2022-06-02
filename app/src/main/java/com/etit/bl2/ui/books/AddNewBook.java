@@ -1,15 +1,12 @@
-package com.etit.bl2;
+package com.etit.bl2.ui.books;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,6 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+
+import com.etit.bl2.data.DatabaseHelper;
+import com.etit.bl2.ui.MainActivity;
+import com.etit.bl2.R;
 import com.squareup.picasso.Picasso;
 
 public class AddNewBook extends AppCompatActivity {

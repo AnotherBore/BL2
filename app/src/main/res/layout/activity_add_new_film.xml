@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddNewFilm">
+    tools:context=".ui.movies.AddNewFilm">
 
     <EditText
         android:id="@+id/etDirector"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:ellipsize="end"
-        android:hint="Author"
+        android:hint="Director"
         android:inputType="textPersonName"
         android:singleLine="true"
         app:layout_constraintEnd_toStartOf="@+id/ivCoverFilm"

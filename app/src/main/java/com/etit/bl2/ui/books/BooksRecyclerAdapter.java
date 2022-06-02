@@ -1,4 +1,4 @@
-package com.etit.bl2;
+package com.etit.bl2.ui.books;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.etit.bl2.R;
 
 import java.util.ArrayList;
 

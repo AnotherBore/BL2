@@ -18,9 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.etit.bl2.BooksRecyclerAdapter;
-import com.etit.bl2.DatabaseHelper;
-import com.etit.bl2.FilmsRecyclerAdapter;
+import com.etit.bl2.data.DatabaseHelper;
 import com.etit.bl2.R;
 import com.github.javafaker.Faker;
 

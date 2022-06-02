@@ -1,4 +1,4 @@
-package com.etit.bl2;
+package com.etit.bl2.data;
 
 import android.content.ContentValues;
 import android.database.Cursor;

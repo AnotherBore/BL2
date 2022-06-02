@@ -1,36 +1,32 @@
-package com.etit.bl2;
+package com.etit.bl2.ui;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.etit.bl2.ui.books.BooksFragment;
+import com.etit.bl2.data.MakeMarkdown;
+import com.etit.bl2.R;
+import com.etit.bl2.databinding.ActivityMainBinding;
+import com.etit.bl2.ui.books.AddNewBook;
+import com.etit.bl2.ui.movies.AddNewFilm;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.ShareCompat;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.etit.bl2.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.File;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
@@ -94,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                 try {
                     Uri uri = make.make(this);
-                    String info = "Это мой вишлист развлечений\nТы можешь посмотреть его в лююбом Markdown редакторе.";
+                    String info = "Это мой вишлист развлечений.\nТы можешь посмотреть его в любом Markdown редакторе.";
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_SEND);
                     intent.putExtra(Intent.EXTRA_STREAM, uri);

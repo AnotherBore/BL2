@@ -31,19 +31,19 @@
         </provider>
 
         <activity
-            android:name=".UpdateFilm"
+            android:name=".ui.movies.UpdateFilm"
             android:exported="false" />
         <activity
-            android:name=".AddNewFilm"
+            android:name=".ui.movies.AddNewFilm"
             android:exported="false" />
         <activity
-            android:name=".UpdateBook"
+            android:name=".ui.books.UpdateBook"
             android:exported="false" />
         <activity
-            android:name=".AddNewBook"
+            android:name=".ui.books.AddNewBook"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>

@@ -1,7 +1,8 @@
-package com.etit.bl2;
+package com.etit.bl2.ui.movies;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,36 +11,37 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import android.widget.Spinner;
 
+import com.etit.bl2.data.DatabaseHelper;
+import com.etit.bl2.R;
+import com.etit.bl2.ui.MainActivity;
+import com.etit.bl2.ui.books.AddNewBook;
 import com.squareup.picasso.Picasso;
 
-public class UpdateBook extends AppCompatActivity {
+public class UpdateFilm extends AppCompatActivity {
     private String id, title, author, image_uri, description;
-    private int progress, rating;
+    private int watch_id, rating;
 
     private EditText title_input, author_input, image_uri_input, description_input;
     private ImageView cover_output;
-    private TextView progress_txt;
+    private Spinner watch_input;
     private Button update_button;
-    private SeekBar progress_input;
     private RatingBar rating_input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_book);
+        setContentView(R.layout.activity_update_film);
 
-        title_input = findViewById(R.id.etTitleUpdate);
-        author_input = findViewById(R.id.etAuthorUpdate);
-        image_uri_input = findViewById(R.id.etImageUriUpdate);
-        progress_txt = findViewById(R.id.tvProgressIndicationUpdate);
-        description_input = findViewById(R.id.etCommentUpdate);
-        update_button = findViewById(R.id.buttonUpdate);
-        progress_input = findViewById(R.id.sbProgressUpdate);
-        rating_input = findViewById(R.id.rbRatingUpdate);
-        cover_output = findViewById(R.id.ivCoverUpdate);
+        title_input = findViewById(R.id.etTitleFilmUpdate);
+        author_input = findViewById(R.id.etDirectorUpdate);
+        image_uri_input = findViewById(R.id.etImageUriFilmUpdate);
+        watch_input = findViewById(R.id.spWatchUpdate);
+        description_input = findViewById(R.id.etCommentFilmUpdate);
+        update_button = findViewById(R.id.buttonFilmUpdate);
+        rating_input = findViewById(R.id.rbRatingFilmUpdate);
+        cover_output = findViewById(R.id.ivCoverFilmUpdate);
 
         image_uri_input.addTextChangedListener(new TextWatcher() {
             @Override
@@ -67,38 +69,23 @@ public class UpdateBook extends AppCompatActivity {
             }
         });
 
-        progress_input.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                String percent = String.valueOf(seekBar.getProgress()) + '%';
-                progress_txt.setText(percent);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
         getAndSetExtra();
 
         update_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 byte[] cover_byte = AddNewBook.drawable2Bytes(cover_output.getDrawable());
-                DatabaseHelper db = new DatabaseHelper(UpdateBook.this);
-                db.updateBooks(id, title_input.getText().toString().trim(),
+                DatabaseHelper db = new DatabaseHelper(UpdateFilm.this);
+                db.updateFilm(id, title_input.getText().toString().trim(),
                         author_input.getText().toString().trim(),
                         image_uri_input.getText().toString().trim(),
                         cover_byte,
-                        progress_input.getProgress(),
+                        (int) watch_input.getSelectedItemId(),
+                        watch_input.getSelectedItem().toString(),
                         rating_input.getProgress(),
                         description_input.getText().toString().trim());
+                Intent intent = new Intent(UpdateFilm.this, MainActivity.class);
+                startActivityForResult(intent, 1);
                 finish();
             }
         });
@@ -110,7 +97,7 @@ public class UpdateBook extends AppCompatActivity {
             title = getIntent().getStringExtra("title");
             author = getIntent().getStringExtra("author");
             image_uri = getIntent().getStringExtra("image_uri");
-            progress = getIntent().getIntExtra("progress", -1);
+            watch_id = getIntent().getIntExtra("watch_id", 0);
             rating = getIntent().getIntExtra("rating", -1);
             description = getIntent().getStringExtra("description");
 
@@ -118,7 +105,7 @@ public class UpdateBook extends AppCompatActivity {
             author_input.setText(author);
             description_input.setText(description);
             image_uri_input.setText(image_uri);
-            progress_input.setProgress(progress);
+            watch_input.setSelection(watch_id);
             rating_input.setProgress(rating);
         }else{
 
